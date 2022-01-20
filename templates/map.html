@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Project CSS style 
+  <link rel="stylesheet" href="style.css">
+  -->
+
+  <!-- Leaflet CSS style -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin=""/>
+  <!-- Leaflet Javascript Code -->
+    <script
+    src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
+</head>
+ 
+<style>
+  
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #aa0f04;
+  color: white;
+}
+</style>
+
+
+<body>
+<!-- The div where we'll insert our navigation bar -->
+<div class="topnav">
+  <a class="active" href="map">Map</a>
+  <a href="/">Home</a>
+  <a href="charts">Charts</a>
+</div>
+<!-- The div where we'll insert our heading -->
+<div style="padding-left:16px">
+    <h2>Weather Alerts Map</h2>
+    <p>Explore the severe weather alerts map</p>
+</div>
+<!-- The div where we'll insert our states menu -->
+<div class="menu">
+  <form id = "states_form" action="/map" methods="post">
+  <select name="state" width = "300px">
+    {% for state in states %}
+    <option name={{state}}>{{state}}</option>
+    {% endfor %}
+  </select>
+  <input type="submit" name="search">
+</form>
+</div>
+
+<!-- The div where we'll insert our map -->
+<div id="map" 
+  style="width: 600px; height: 400px; position: relative; outline: none;" 
+  class="leaflet-container leaflet-touch leaflet-retina leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" 
+  tabindex="0">
+</div>  
+
+<script>
+ // Create Map Object
+	var map = L.map('map').setView([44.96, -103.77], 13);
+// Add tile layer
+  var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+   {
+    maxZoom: 18,
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
+    'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    id: 'mapbox/streets-v11',
+    tileSize: 512,
+    zoomOffset: -1
+    }).addTo(map);
+
+  var geojson = new L.geojson.ajax("feature_collection_geoJson.geojson");
+  geojson.on('data:loaded', function(){
+  geojson.addTo(mymap);
+  });
+</script>
+
+<!-- Project Javascript Code PlaceHolder 
+<script type="text/javascript" src="../logic.js"></script>
+-->
+<!-- PlaceHolder Image
+<img src="https://intelliweather.com/wp-content/images/main_slider3.jpg" alt="Map Place Holder">
+-->
+
+</body>
+
+</html>

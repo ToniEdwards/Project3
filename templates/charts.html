@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #aa0f04;
+  color: white;
+}
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a class="active" href="/">Charts</a>
+  <a href="/">Home</a>
+  <a href="map">Map</a>
+</div>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart.js Bar Chart</title>
+    <style type="text/css">
+        .chartBox {
+            width: 1320px;
+
+        }
+    </style>
+    <!--Chart.js JS CDN--> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script> 
+  </head>
+  <body>
+
+    <div class="chartBox">
+	<canvas id="myChart"></canvas>
+    </div>
+
+    <div class="chartBox">
+        <canvas id="myChart1"></canvas>
+    </div>
+
+    <script>
+      const ctx = document.getElementById('myChart').getContext('2d');
+      const myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ["Unknown", "Minor", "Moderate", "Severe", "Extreme"],
+            datasets: [{ 
+                data: [0,0,0,20,0],
+                label: "Total",
+                borderColor: "rgb(62,149,205)",
+                backgroundColor: "rgb(62,149,205,0.1)",
+                borderWidth:2
+              },
+            ],
+          },
+          options: {
+            title: {
+              display: true,
+              text: "ANALYZING EVENTS BY SEVERITY"
+            },
+            legend: {
+              position: 'bottom',
+              labels: {
+                boxWidth: 20,
+                padding: 20
+              }
+            },
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }]
+            }
+          }
+      });
+
+        const ctx1 = document.getElementById('myChart1').getContext('2d');
+      const myChart1 = new Chart(ctx1, {
+          type: 'pie',
+          data: {
+            labels: ["Flood Warning","Winter Storm Warning", "Winter Storm Watch", "Freeze Watch", "High Wind Warning", "Fire Weather Watch"],
+            datasets: [{ 
+                data: [7,5,3,2,2,1],
+                borderColor: [
+                  "#3cba9f",
+                  "#ffa500",
+                  "#c45850",
+                  "#76448a",
+                  "#21618c",
+                  "#f4d03f",
+            ],
+                backgroundColor: [
+                  "rgb(60,186,159,0.1)",
+                  "rgb(255,165,0,0.1)",
+                  "rgb(196,88,80,0.1)",
+                  "rgb(118,68,138,0.1)",
+                  "rgb(33,97,140,0.1)",
+                  "rgb(244,208,63,0.1)",
+                ],
+                borderWidth:2
+              }
+            ]
+          },
+          options: {
+            title: {
+              display: true,
+              text: "BREAKING DOWN TYPE OF EVENTS BY STATE (in TX)"
+            },
+            legend: {
+              position: 'left',
+              labels: {
+                boxWidth:20,
+                padding:50
+              },
+            },
+          }
+        });
+        
+    </script>
+
+  
+  
+  </body>
+</html>
